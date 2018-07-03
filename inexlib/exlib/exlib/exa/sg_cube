@@ -1,0 +1,174 @@
+// Copyright (C) 2010, Guy Barrand. All rights reserved.
+// See the file exlib.license for terms.
+
+//exlib_build_use exlib inlib
+
+#ifndef exlib_examples_sg_cube
+#define exlib_examples_sg_cube
+
+#include <inlib/sg/ortho>
+#include <inlib/sg/color>
+#include <inlib/sg/cube>
+#include <inlib/sg/matrix>
+#include <inlib/sg/noderef>
+
+#include <inlib/colorfs>
+#include <inlib/mathf>
+#include <inlib/sg/group>
+
+#include <exlib/sg/GL_manager>
+#include <exlib/sg/GL_action>
+
+namespace exlib {
+namespace examples {
+namespace sg {
+
+class cube {
+public:
+  cube(std::ostream& a_out)
+  :m_out(a_out)
+  ,m_gl_mgr(a_out)
+  ,m_background(1,1,1)
+  ,m_ww(0)
+  ,m_wh(0)
+  ,m_camera(0)
+  {
+    create_sg(); //create scene graph.
+  }
+  virtual ~cube() {
+    m_sg.clear();
+    m_camera = 0;
+  }
+private:
+  cube(const cube& a_from)
+  :m_out(a_from.m_out)
+  ,m_gl_mgr(a_from.m_gl_mgr)
+  {}
+  cube& operator=(const cube&){return *this;}
+public:
+  unsigned int window_width() const {return m_ww;}
+  unsigned int window_height() const {return m_wh;}
+  inlib::sg::ortho* camera() const {return m_camera;}
+
+  void mouse_down(unsigned int a_x,unsigned int a_y) {
+    // (a_x,a_y) : (0,0) is bottom left of window.
+    //m_out << "debug : mouse_down :"
+    //      << " x " << a_x << " y " << a_y
+    //      << " ww " << m_ww << " wh " << m_wh
+    //      << std::endl;
+    if(!m_ww || !m_wh) return;
+
+    if(m_sg.size()) {
+      m_sg.clear();
+      m_camera = 0;
+    } else {
+      create_sg();
+    }
+  }
+public:
+  void resize_window(unsigned int a_w,unsigned int a_h) {
+    //m_out << "debug : resize_window :"
+    //      << " ww " << a_w << " wh " << a_h
+    //      << std::endl;
+    m_ww = a_w;
+    m_wh = a_h;    
+  }
+
+  void reset_camera() {
+    if(!m_camera) return;
+    m_camera->position.value(inlib::vec3f(0,0,4));    
+    m_camera->height.value(2);    
+    m_camera->znear.value(0.1);
+    m_camera->zfar.value(100);
+    m_camera->orientation.value(inlib::rotf(inlib::vec3f(0,0,1),0));
+  }
+
+  void render() {
+    //m_out << "debug : render :" << std::endl;
+
+    if(!m_ww) return;
+    if(!m_wh) return;
+
+    ::glEnable(GL_DEPTH_TEST);
+    ::glFrontFace(GL_CCW);
+    ::glEnable(GL_CULL_FACE);
+    //  So that lightning is correctly computed 
+    // when some scaling is applied.
+    ::glEnable(GL_NORMALIZE);
+    ::glShadeModel(GL_FLAT);
+    //::glEnable(GL_LIGHTING);
+    //::glDisable(GL_LIGHT0);
+
+    //printf("debug : %d %d\n",width,height);
+
+    //::glEnable(GL_SCISSOR_TEST);
+
+    ::glViewport(0,0,m_ww,m_wh);
+    //::glScissor(0,0,m_ww,m_wh);
+
+    // Better to clear after glViewport and glScissor 
+    // (else problems with Mesa).
+    ::glClearColor(m_background.r(),
+                   m_background.g(),
+                   m_background.b(),0);
+    ::glClear(GL_COLOR_BUFFER_BIT);
+    ::glClear(GL_DEPTH_BUFFER_BIT);
+
+    ::glMatrixMode(GL_PROJECTION);
+    ::glLoadIdentity();
+
+    ::glMatrixMode(GL_MODELVIEW);
+    ::glLoadIdentity();
+
+    exlib::sg::GL_action action(m_gl_mgr,m_out,m_ww,m_wh);
+    m_sg.render(action);
+
+    ::glFinish();
+  }
+
+  void rotate_sg() {
+    m_matrix.mul_rotate(1,0,0,inlib::fdeg2rad());
+  }
+
+private:
+  void create_sg() {
+    m_sg.clear();
+
+    m_camera = new inlib::sg::ortho;
+    m_camera->position.value(inlib::vec3f(0,0,4));    
+    m_camera->height.value(2);    
+    m_camera->znear.value(0.1);
+    m_camera->zfar.value(100);
+    m_sg.add(m_camera);
+
+    m_matrix.set_rotate(0,1,0,inlib::fhalf_pi()/2.0f);
+    m_matrix.mul_rotate(1,0,0,inlib::fhalf_pi()/2.0f);
+    m_sg.add(new inlib::sg::noderef(m_matrix));
+
+    inlib::sg::color* color = new inlib::sg::color();
+    color->rgb = inlib::colorf_green();
+    m_sg.add(color); //sg takes ownership of color.
+
+    inlib::sg::cube* node = new inlib::sg::cube();
+    node->width.value(1.0f);
+    node->height.value(1.0f);
+    node->depth.value(1.0f);
+    m_sg.add(node);
+  }
+
+private: //viewer
+  std::ostream& m_out;
+  exlib::sg::GL_manager m_gl_mgr;
+  inlib::colorf m_background;
+  inlib::sg::group m_sg;
+private:
+  unsigned int m_ww;
+  unsigned int m_wh;
+private:
+  inlib::sg::ortho* m_camera;
+  inlib::sg::matrix m_matrix;
+};
+
+}}}
+
+#endif
