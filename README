@@ -12,6 +12,6 @@
   These builds assume a lot of prerequistes (for example having installed an
  Android SDK and NDK, etc). See also the "Build for Android" section under
  the softinex portal for generic instructions. When/if having these two little
- apps running on your device, you can attempt to build the pmx and/or the g4exa
- apps doing much more visualization in connection to physics.
+ apps running on your Android device, you can attempt to build the pmx and/or
+ the g4exa apps doing much more visualization in connection to physics.
 
