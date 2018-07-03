@@ -1,5 +1,5 @@
 /**
-@page inexlib_android_download Download
+@page inexlib_android_download <h2>Download</h2>
 
   Source and some binaries are on github :
 <p>
