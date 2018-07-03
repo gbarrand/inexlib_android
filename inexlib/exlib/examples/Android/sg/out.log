@@ -1,0 +1,91 @@
+NOTE : jks password is 'android'
+[arm64-v8a] Compile++      : exlib_sg <= jni.cpp
+In file included from jni/jni.cpp:10:
+In file included from jni/../../../../exlib/exa/sg_cube:9:
+../../../../inlib/inlib/sg/ortho:7:10: fatal error: 'base_camera' file not found
+#include "base_camera"
+         ^~~~~~~~~~~~~
+1 error generated.
+make: *** [obj/local/arm64-v8a/objs/exlib_sg/jni.o] Error 1
+Buildfile: /Users/barrand/private/dev/softinex/github/inexlib_android/inexlib/exlib/examples/Android/sg/build.xml
+
+-set-mode-check:
+
+-set-release-mode:
+
+-release-obfuscation-check:
+     [echo] proguard.config is ${proguard.config}
+
+-pre-build:
+
+-check-env:
+ [checkenv] Android SDK Tools Revision 24.0.2
+ [checkenv] Installed at /usr/local/Android/android-sdk_r16-macosx
+
+-setup:
+     [echo] Project Name: exlib_sg
+  [gettype] Project Type: Application
+
+-build-setup:
+[getbuildtools] Using latest Build Tools: 23.0.1
+     [echo] Resolving Build Target for exlib_sg...
+[gettarget] Project Target:   Android 4.2.2
+[gettarget] API level:        17
+     [echo] ----------
+     [echo] Creating output directories if needed...
+    [mkdir] Created dir: /Users/barrand/private/dev/softinex/github/inexlib_android/inexlib/exlib/examples/Android/sg/bin/rsObj
+    [mkdir] Created dir: /Users/barrand/private/dev/softinex/github/inexlib_android/inexlib/exlib/examples/Android/sg/bin/rsLibs
+     [echo] ----------
+     [echo] Resolving Dependencies for exlib_sg...
+[dependency] Library dependencies:
+[dependency] No Libraries
+[dependency] 
+[dependency] ------------------
+     [echo] ----------
+     [echo] Building Libraries with 'release'...
+   [subant] No sub-builds to iterate on
+
+-code-gen:
+[mergemanifest] No changes in the AndroidManifest files.
+     [echo] Handling aidl files...
+     [aidl] No AIDL files to compile.
+     [echo] ----------
+     [echo] Handling RenderScript files...
+     [echo] ----------
+     [echo] Handling Resources...
+     [aapt] No changed resources. R.java and Manifest.java untouched.
+     [echo] ----------
+     [echo] Handling BuildConfig class...
+[buildconfig] Generating BuildConfig class.
+
+-pre-compile:
+
+-compile:
+    [javac] Compiling 1 source file to /Users/barrand/private/dev/softinex/github/inexlib_android/inexlib/exlib/examples/Android/sg/bin/classes
+
+-post-compile:
+
+-obfuscate:
+
+-dex:
+      [dex] input: /Users/barrand/private/dev/softinex/github/inexlib_android/inexlib/exlib/examples/Android/sg/bin/classes
+      [dex] Found modified input file
+      [dex] Converting compiled files and external libraries into /Users/barrand/private/dev/softinex/github/inexlib_android/inexlib/exlib/examples/Android/sg/bin/classes.dex...
+
+-crunch:
+   [crunch] Crunching PNG Files in source dir: /Users/barrand/private/dev/softinex/github/inexlib_android/inexlib/exlib/examples/Android/sg/res
+   [crunch] To destination dir: /Users/barrand/private/dev/softinex/github/inexlib_android/inexlib/exlib/examples/Android/sg/bin/res
+   [crunch] Crunched 0 PNG files to update cache
+
+-package-resources:
+     [aapt] Creating full resource package...
+
+-package:
+[apkbuilder] Current build type is different than previous build: forced apkbuilder run.
+[apkbuilder] Creating exlib_sg-release-unsigned.apk for release...
+
+-post-package:
+
+-release-prompt-for-password:
+    [input] Please enter keystore password (store:./exlib_sg.jks):
+can't find './bin/exlib_sg-release.apk' to install
