@@ -1,12 +1,17 @@
 
- To build the exlib_gl Android app doing GL-ES :
+  To build the exlib_gl Android app doing some simple GL-ES :
     UNIX> cd <install_path>/inexlib/exlib/examples/Android/gl
     UNIX> <read the README>
     UNIX> ./build
 
- To build the exlib_sg Android app drawing a cube with inlib/sg/cube (and GL-ES) :
+  To build the exlib_sg Android app drawing a cube with inlib/sg/cube (and GL-ES) :
     UNIX> cd <install_path>/inexlib/exlib/examples/Android/sg
     UNIX> <read the README>
     UNIX> ./build
 
+  These builds assume a lot of prerequistes (for example having installed an
+ Android SDK and NDK, etc). See also the "Build for Android" section under
+ the softinex portal for generic instructions. When/if having these two little
+ apps running on your device, you can attempt to build the pmx and/or the g4exa
+ apps doing much more visualization in connection to physics.
 
