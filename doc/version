@@ -1,8 +1,8 @@
 // Copyright (C) 2010, Guy Barrand. All rights reserved.
-// See the file inexlib_py.license for terms.
+// See the file inexlib_android.license for terms.
 
-#ifndef inexlib_py_inexlib_py_version
-#define inexlib_py_inexlib_py_version
+#ifndef inexlib_android_inexlib_android_version
+#define inexlib_android_inexlib_android_version
 
 #define INEXLIB_PY_MAJOR_VERSION 1
 #define INEXLIB_PY_MINOR_VERSION 0

@@ -1,6 +1,6 @@
 /**
 
-@page inexlib_py_usage Usage
+@page inexlib_android_usage Usage
 
 <p>
 
