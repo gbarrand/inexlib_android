@@ -1,3 +1,0 @@
-# view AndroidManifest.xml #generated:15
--keep class fr.in2p3.lal.exlib.sg.Main { <init>(...); }
-
